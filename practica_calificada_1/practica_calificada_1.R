@@ -70,3 +70,19 @@
 ## 2) el número de goles anotados por equipo que quedó segundo puesto 
 
 
+# Pregunta 3 --------------------------------------------------------------
+
+## Ejercicio a ----
+## Suba la base de datos que utilizarán en su trabajo final a un repositorio de GitHub
+## (cree una cuenta para su grupo), cárguela y presente una breve descripción
+
+
+## Ejercicio b ----
+## Elija una variable numérica y cree una tabla con los siguientes descriptivos:
+## mínimo, máximo, media, mediana, desviación estándar y rango intercuartílico
+
+
+## Ejercicio c ----
+## Elija una variable categórica y cree una tabla donde muestre
+## la frecuencia de las categorías y su porcentaje.
+
