@@ -82,7 +82,8 @@ WCMatches |>
 
 ## Ejercicio d ----
 ## Indique cuál es el referee que más partidos ha arbitrado
-
+WCMatches |> 
+  count(Referee, sort = TRUE)
 
 ## Ejercicio e ----
 ## Cuál es el partido en el que se anotaron más goles
