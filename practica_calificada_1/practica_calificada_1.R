@@ -58,6 +58,12 @@ WC
 ## Genere una lista con los países donde se ha realizado una copa mundial.
 ## Sólo deben figurar valores únicos.
 
+# Se activa la libreria para manipulación de datos
+library(dplyr)
+# Se usa la siguiente función para seleccionar una o más variables de la base de datos según corresponda. 
+# En este caso, .data= permite identificar el DataFrame desesado, WC, luego se especifica el nombre de la variable.
+# Revisando la base de datos, se identificó que "Country" en WC refiere a los países donde se realizó una copa mundial.
+select(.data= WC, Country)
 
 ## Ejercicio c ----
 ## Presente cuál fue el estadio que ha acogido a la mayor cantidad
