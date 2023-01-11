@@ -59,7 +59,7 @@ WC
 ## Sólo deben figurar valores únicos.
 
 # Se activa la libreria para manipulación de datos
-library(dplyr)
+library(tidyverse)
 # Se usa la siguiente función para seleccionar una o más variables de la base de datos según corresponda. 
 # En este caso, .data= permite identificar el DataFrame desesado, WC, luego se especifica el nombre de la variable.
 # Revisando la base de datos, se identificó que "Country" en WC refiere a los países donde se realizó una copa mundial.
@@ -68,7 +68,17 @@ select(.data= WC, Country)
 ## Ejercicio c ----
 ## Presente cuál fue el estadio que ha acogido a la mayor cantidad
 ## de espectadores o asistentes en la historia de los mundiales
-
+# Para este ejercicio se usará el operador Pipe
+# Se usa la funcion summarise ya que contiene diversos cálculos estadísticos, como valor máximo.
+# En este caso, se usa el argumento na.rm para indicar si se incluye los valores perdidos. Para ello, se indica na.rm=TRUE para no devuelva NA como resultado. 
+WCMatches |> 
+  summarise(max(Attendance, na.rm=TRUE))
+# Luego de identificar el máximo valor de asistentes en la historia del mundial, 
+# se usará la función filter para identificar el caso correspondiente
+# y luego se seleccionará el estadio que acogio a esa cantidad máxima de asistentes
+WCMatches |> 
+  filter(Attendance == 173850) |> 
+  select(Stadium, Attendance)
 
 ## Ejercicio d ----
 ## Indique cuál es el referee que más partidos ha arbitrado
