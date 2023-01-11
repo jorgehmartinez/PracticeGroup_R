@@ -56,18 +56,74 @@
 
 
 ## Ejercicio e ----
+library(tidyverse)
 ## Cuál es el partido en el que se anotaron más goles
+#importando los datos de WorldCupMatches
+WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+class(WorldCupMatches)
+str(WorldCupMatches)
+WorldCupMatches
+view(WorldCupMatches)
 
+#importando los datos de WorldCups
+WorldCups <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+class(WorldCups)
+str(WorldCups)
+WorldCups
+library(tidyverse)
+WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+class(WorldCupMatches)
+str(WorldCupMatches)
+WorldCupMatches
+view(WorldCupMatches)
+view(WorldCupMatches)
+summarize(WorldCupMatches)
+## aca se creo una variable que suma los goles de local y visitante
+ejg3<- WorldCupMatches |>  mutate(goles_mas=rowSums(WorldCupMatches[ ,c(7,8)])) #Nueva variable: suma de goles
+View(ejg3)
+## una vez creada la variable se procede a ver el que tenga mas goles aplicando la funcion max de summarize
+ejg3 |>
+  summarise(max(goles_mas))
+View(ejg3)
 
 ## Ejercicio f ----
 ## En la base “WordCupMatches” cree las siguientes nuevas variables:
 ## equipo ganador, equipo 2do puesto y equipo 3er puesto
+## para este caso se considero como equipo 1er puesto y segundo 
+## a los partidos donde se llego a la fase final y la variable 3er
+## puesto a los partidos que llegaron a semi finales
+library(tidyverse)
+WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+
+ejf1<- WorldCupMatches |>  mutate(equipo_ganador=Stage=="Final")
+View(ejf1)
+
+ejf2<- WorldCupMatches |>  mutate(equipo_2do_puesto=Stage=="Final")
+View(ejf2)
+
+ejf3<- WorldCupMatches |>  mutate(equipo_3er_puesto=Stage=="Semi-Finals")
+View(ejf3)
 
 
 ## Ejercicio g ----
 ## En la base “WorldCups” genere dos columnas que indiquen: 
 ## 1) el número de golesanotados por el campeón (primer puesto), y
 ## 2) el número de goles anotados por equipo que quedó segundo puesto 
+library(tidyverse)
+WorldCups <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+
+names(WorldCups)
+names(WorldCupMatches)
+
+#para esto se debera unir los dos df
+WorldCups |>
+  full_join(WorldCupMatches, by = "Year")
+ejg1<- WorldCups |>  mutate(goles_campeon=Stage=="winner")
+View(ejg1)
+
+ejg2<- WorldCups |>  mutate(goles_campeon=Stage=="winner")
+View(ejg1)
 
 
 # Pregunta 3 --------------------------------------------------------------
