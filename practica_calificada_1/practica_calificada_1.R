@@ -39,7 +39,20 @@
 ## Ejercicio a ----
 ## Abra las siguientes bases de datos GitHub: 
 ## WorldCupMatches.csv y WorldCups.csv
-
+# Se usa la funcion libreria para activar el paquete readr con el fin de usar las funciones de importacion de datos
+library(readr)
+# Se crea el objeto enlace1 para WorldCupMatches.csv
+enlace1 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+# Se crea el objeto enlace2 para WorldCup.csv
+enlace2 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+# Se genera las funciones para leer las bases de datos en formato CSV
+WCMatches <- read_csv(enlace1)
+WC <- read_csv(enlace2)
+# Se genera las funciones para revisar y abrir las bases de datos en formato dataframe
+str(WCMatches)
+WCMatches
+str(WC)
+WC
 
 ## Ejercicio b ----
 ## Genere una lista con los países donde se ha realizado una copa mundial.
