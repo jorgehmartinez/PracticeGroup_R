@@ -110,20 +110,23 @@ View(ejf3)
 ## 1) el número de golesanotados por el campeón (primer puesto), y
 ## 2) el número de goles anotados por equipo que quedó segundo puesto 
 library(tidyverse)
-WorldCups <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
-WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+enlace2 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+WorldCups <- read.csv(enlace2)
 
-names(WorldCups)
-names(WorldCupMatches)
+enlace1 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+WorldCupMatches<- read.csv(enlace1)
+library(dplyr)
 
 #para esto se debera unir los dos df
-WorldCups |>
+WorldCups_full <- WorldCups |>
   full_join(WorldCupMatches, by = "Year")
-ejg1<- WorldCups |>  mutate(goles_campeon=Stage=="winner")
-View(ejg1)
+view(WorldCups_full)
+#para obtener lo solicitado se debe cumplir las siguientes condiciones:
+#si Home.Team.Name es igual a Winner se sumara Home.Team.Goals
+#si Away.Team.Name es igual a Winner se sumara Away.Team.Goals
 
-ejg2<- WorldCups |>  mutate(goles_campeon=Stage=="winner")
-View(ejg1)
+WorldCups_full |>
+  filter(Winner==Home.Team.Name | Winner==Away.Team.Name)
 
 
 # Pregunta 3 --------------------------------------------------------------
