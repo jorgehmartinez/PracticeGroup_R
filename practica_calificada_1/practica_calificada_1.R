@@ -121,21 +121,18 @@ library(tidyverse)
 WCMatches |>  
   ## aca se creo una variable que suma los goles de local y visitante
   mutate(goles_mas=rowSums(WCMatches[ ,c(7,8)])) |> 
-  ## luego se procede a ver el que tenga mas goles aplicando la funcion max de summarize
-  select(`Home Team Name`, `Away Team Name`, goles_mas) |> 
+  ## luego se procede a seleccionar las variables de interés:
+  ## los equipos participantes del partido y el total de goles anotados
+  select(`Home Team Name`, `Away Team Name`, total_goles_partido) |> 
   ## el partido con más goles se visualiza en la primera fila
   ## el partido fue Austria vs Switzerland 
-  arrange(desc(goles_mas)) 
+  arrange(desc(total_goles_partido)) 
 
 ## Ejercicio f ----
 ## En la base “WordCupMatches” cree las siguientes nuevas variables:
 ## equipo ganador, equipo 2do puesto y equipo 3er puesto
-## para este caso se considero como equipo 1er puesto y segundo 
-## a los partidos donde se llego a la fase final y la variable 3er
-## puesto a los partidos que llegaron a semi finales
-library(tidyverse)
 
-# seleccionar y renombrar variables de la base "WorldCups"
+## seleccionar y renombrar variables de la base "WorldCups"
 WC <- WC |> 
   select(
     Year, 
@@ -144,11 +141,11 @@ WC <- WC |>
     equipo_3er_puesto = Third
   )
 
-# unir las tres variables creadas a la base "WorldCupMatches"
+## unir las tres variables creadas a la base "WorldCupMatches"
 WCMatches <- WCMatches |> 
   left_join(WC, by = "Year") 
 
-# visualizar las variables creadas
+## visualizar las variables creadas
 glimpse(WCMatches)
 
 
