@@ -15,24 +15,51 @@
 ## Ejercicio a ----
 ## Abra la data del repositorio GitHub y describa brevemente.
 ## Asegurarse que el objeto posea la clase tibble.
-
+###Descarga de Library
+library(rio)
+library(tidyverse)
+library(datos)
+###Archvio desde Github
+link<-"https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2021---R-Intermedio/main/vacunados_apurimac.csv"
+vacunas_GH<-read.csv(link) #Asignamos la data anterior al objeto vacunas_GH
+class(vacunas_GH) #visualiza el tipo de datos del objeto vacunas_GH
+head(vacunas_GH) #visualiza las primeras filas de vacunas_GH
+vacunas_tb<-as.tibble(vacunas_GH) #Convierte a la clase de datos tibble
+class(vacunas_tb) #verifica que los datos del objeto sean del tipo tibble
+head(vacunas_tb) #visualiza las 6 primeras filas de vacunas_tb
+names(vacunas_tb) #visualiza los nombres de todas las variables.
 
 ## Ejercicio b ----
 ## Cree una nueva variable (de nombre “fecha”) 
 ## usando la variable “FECHA_VACUNACION”.
 ## Puede utilizar la función ymd () del paquete “lubridate”
-
+View(vacunas_tb) #Visualiza la base de datos
+library(lubridate) 
+FECHA<-vacunas_tb[[6]] #Crea variable FECHA en base a FECHA_VACUNACION
+FECHA<-ymd(FECHA) #Convierte la variable FECHA de integer a date
+class(FECHA) #verifica el tipo de dato de la variable fecha
 
 ## Ejercicio c ----
 ## Cree una nueva data que agregue los datos según fecha
 ## para saber el total de vacunados por día.
 ## ¿Qué día se realizó la mayor cantidad de vacunas en Apurímac?
-
+vacunas_vf<-vacunas_tb |> 
+  mutate(FECHA) |> #crea una nueva data incorporando la variable FECHA
+  count(FECHA)  |> #Cuenta el numero de vacunas por fecha
+  arrange(desc(n)) #Ordena de descendentemente el número de vacunas
+vacunas_vf #visuaiza el resultado
+#El dia que se tuvo mayor número de vacunas fue el 28/8/2021
 
 ## Ejercicio d ----
 ## ¿Cuáles son los tres distritos que tiene una mayor población vacunada
 ## con la 3ra dosis?
 
+tres_vacunas<-vacunas_vf |> #Asigna al objeto tres_vacunas aquellos q datos q cuentan con la tercera dosis
+  filter(DOSIS==3) |> #filtra aquellos distritos q sólo tienen l terdera dosis
+  count(DISTRITO) |> #cuenta el numero de distritos con tercera dosis
+  arrange(desc(n)) # ordena de forma descendente los datos
+tres_vacunas #visualiza el resultado
+#LOs distritos con mayor número de vacunados con tercera dosis son: ABANCAY (11805),ANDAHUAYLAS(5833) y TALAVERA (2264)  
 
 # Pregunta 2 --------------------------------------------------------------
 
