@@ -118,33 +118,14 @@ WCMatches |>
 ## Ejercicio e ----
 library(tidyverse)
 ## Cuál es el partido en el que se anotaron más goles
-#importando los datos de WorldCupMatches
-WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
-class(WorldCupMatches)
-str(WorldCupMatches)
-WorldCupMatches
-view(WorldCupMatches)
-
-#importando los datos de WorldCups
-WorldCups <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
-class(WorldCups)
-str(WorldCups)
-WorldCups
-library(tidyverse)
-WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
-class(WorldCupMatches)
-str(WorldCupMatches)
-WorldCupMatches
-view(WorldCupMatches)
-view(WorldCupMatches)
-summarize(WorldCupMatches)
-## aca se creo una variable que suma los goles de local y visitante
-ejg3<- WorldCupMatches |>  mutate(goles_mas=rowSums(WorldCupMatches[ ,c(7,8)])) #Nueva variable: suma de goles
-View(ejg3)
-## una vez creada la variable se procede a ver el que tenga mas goles aplicando la funcion max de summarize
-ejg3 |>
-  summarise(max(goles_mas))
-View(ejg3)
+WCMatches |>  
+  ## aca se creo una variable que suma los goles de local y visitante
+  mutate(goles_mas=rowSums(WCMatches[ ,c(7,8)])) |> 
+  ## luego se procede a ver el que tenga mas goles aplicando la funcion max de summarize
+  select(`Home Team Name`, `Away Team Name`, goles_mas) |> 
+  ## el partido con más goles se visualiza en la primera fila
+  ## el partido fue Austria vs Switzerland 
+  arrange(desc(goles_mas)) 
 
 ## Ejercicio f ----
 ## En la base “WordCupMatches” cree las siguientes nuevas variables:
@@ -153,68 +134,85 @@ View(ejg3)
 ## a los partidos donde se llego a la fase final y la variable 3er
 ## puesto a los partidos que llegaron a semi finales
 library(tidyverse)
-WorldCupMatches <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
 
-ejf1<- WorldCupMatches |>  mutate(equipo_ganador=Stage=="Final")
-View(ejf1)
+# seleccionar y renombrar variables de la base "WorldCups"
+WC <- WC |> 
+  select(
+    Year, 
+    equipo_ganador = Winner,
+    equipo_2do_puesto = `Runners-Up`,
+    equipo_3er_puesto = Third
+  )
 
-ejf2<- WorldCupMatches |>  mutate(equipo_2do_puesto=Stage=="Final")
-View(ejf2)
+# unir las tres variables creadas a la base "WorldCupMatches"
+WCMatches <- WCMatches |> 
+  left_join(WC, by = "Year") 
 
-ejf3<- WorldCupMatches |>  mutate(equipo_3er_puesto=Stage=="Semi-Finals")
-View(ejf3)
+# visualizar las variables creadas
+glimpse(WCMatches)
 
 
 ## Ejercicio g ----
 ## En la base “WorldCups” genere dos columnas que indiquen: 
-## 1) el número de golesanotados por el campeón (primer puesto), y
+## 1) el número de goles anotados por el campeón (primer puesto), y
 ## 2) el número de goles anotados por equipo que quedó segundo puesto 
-library(tidyverse)
-enlace2 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
-WorldCups <- read.csv(enlace2)
 
-enlace1 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
-WorldCupMatches<- read.csv(enlace1)
-library(dplyr)
+enlace1 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+enlace2 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+WorldCups <- read_csv(enlace1)
+WorldCupMatches <- read_csv(enlace2) #|> filter(!is.na(Year)) 
 
-#para esto se debera unir los dos df
-WorldCups_full <- WorldCups |>
-  full_join(WorldCupMatches, by = "Year")
-view(WorldCups_full)
-##ahora se genero una variable booleana si el ganador coincidia con su condicion de local
-ejg2 <- WorldCups_full |>
-  mutate(ganador_home=Winner==Home.Team.Name)
-View(ejg2)
-##en este caso se suma los goles anotados por el equipo local si este era el campeon
-ejg2 |>
-  filter(ganador_home == "True") |> group_by(Year) |> summarise(Total_Home = sum(Home.Team.Goals))
+WorldCups_full <- WorldCups |> 
+  left_join(WorldCupMatches, by = "Year") |> 
+  distinct() |> #eliminar casos duplicados
+  mutate(
+    winner_home = `Home Team Name` == Winner,
+    winner_away = `Away Team Name` == Winner,
+    second_home = `Home Team Name` == `Runners-Up`,
+    second_away = `Away Team Name` == `Runners-Up`
+  )
 
-##ahora se genero una variable booleana si el ganador coincidia con su condicion de visitante
-ejg3 <- WorldCups_full |>
-  mutate(ganador_away=Winner==Away.Team.Name)
-View(ejg3)  
+### número de goles anotados por el campeón (primer puesto) ----
+winner_home_goals <- WorldCups_full |> 
+  filter(winner_home == "TRUE" ) |> 
+  group_by(Year) |> 
+  summarise(Total_Home = sum(`Home Team Goals`)) 
 
-##en este caso se suma los goles anotados por el equipo visitante si este era el campeon
-ejg2 |>
-  filter(ganador_away == "True") |> group_by(Year) |> summarise(Total_Home = sum(Away.Team.Goals))  
+winner_away_goals <- WorldCups_full |>
+  filter(winner_away == "TRUE") |> 
+  group_by(Year) |> 
+  summarise(Total_Away = sum(`Away Team Goals`)) 
 
-  ##para el caso del sub campeon
-##se genero una variable booleana si el sub campeo coincidia con su condicion de local
-ejg4 <- WorldCups_full |>
-  mutate(Sub_campeon_home=Runners.Up==Home.Team.Name)
-View(ejg4)
-##en este caso se suma los goles anotados por el equipo local si este corresponde
-ejg4 |>
-  filter(Sub_campeon_home == "True") |> group_by(Year) |> summarise(Total_Home = sum(Home.Team.Goals))
+winner_total_goals <- winner_home_goals |> 
+  left_join(winner_away_goals, by = "Year") |> 
+  mutate(Total_Away = case_when(is.na(Total_Away)~ 0, TRUE ~ Total_Away)) |> 
+  mutate(Winner_Goals = Total_Home + Total_Away) |> 
+  select(Year, Winner_Goals)
 
-##ahora se genero una variable booleana si el subcampeon coincidia con su condicion de visitante
-ejg5 <- WorldCups_full |>
-  mutate(Sub_campeon_away=Runners.Up==Away.Team.Name)
-View(ejg5)  
 
-##en este caso se suma los goles anotados por el equipo visitante si este era el campeon
-ejg4 |>
-  filter(Sub_campeon_away == "True") |> group_by(Year) |> summarise(Total_Home = sum(Away.Team.Goals))
+### número de goles anotados por equipo que quedó segundo puesto ----
+second_home_goals <- WorldCups_full |> 
+  filter(second_home == "TRUE") |> 
+  group_by(Year) |> 
+  summarise(Total_Home = sum(`Home Team Goals`)) 
+
+second_away_goals <- WorldCups_full |>
+  filter(second_away == "TRUE") |> 
+  group_by(Year) |> 
+  summarise(Total_Away = sum(`Away Team Goals`)) 
+
+second_total_goals <- second_home_goals |> 
+  left_join(second_away_goals, by = "Year") |> 
+  mutate(Total_Away = case_when(is.na(Total_Away)~ 0, TRUE ~ Total_Away)) |> 
+  mutate(RunnersUp_Goals = Total_Home + Total_Away) |> 
+  select(Year, RunnersUp_Goals)
+
+
+# agregar las dos columnas creadas a la base "WorldCups"
+WorldCups |> 
+  left_join(winner_total_goals, by = "Year") |> 
+  left_join(second_total_goals, by = "Year") 
+
 
 
 # Pregunta 3 --------------------------------------------------------------
@@ -222,14 +220,40 @@ ejg4 |>
 ## Ejercicio a ----
 ## Suba la base de datos que utilizarán en su trabajo final a un repositorio de GitHub
 ## (cree una cuenta para su grupo), cárguela y presente una breve descripción
-
+enlace3 <- "https://raw.githubusercontent.com/jorgehmartinez/PracticeGroup_R/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv"
+trabajo_final <- read.csv2(enlace3)
+glimpse(trabajo_final)
+## La base está compuesto por 4 variables y 104 observaciones
+## La primera variable especifica el nombre del problema de salud mental
+## La segunda variable detalla el segmento evaluado según sexo, área, nivel educativo
+## La tercera variable contiene el valor de prevalencia (en porcentaje)
+## La cuarta variable indica el año en que se realizó el cálculo de prevalencia
 
 ## Ejercicio b ----
 ## Elija una variable numérica y cree una tabla con los siguientes descriptivos:
 ## mínimo, máximo, media, mediana, desviación estándar y rango intercuartílico
+descriptivos <- trabajo_final |> 
+  # convertimos la variable "Valor" en numérica
+  mutate(Valor = as.double(Valor)) |> 
+  select(Valor) |> 
+  summary() 
+
+#agregar la desviación estándar
+descriptivos["Std.Dev."] <- round(sd(trabajo_final$Valor),2)
+
+descriptivos
+## el rango intercuartílico se calcula restando el tercer y primer cuartil,
+## es decir: 39.83 - 13.47 = 26.36
 
 
 ## Ejercicio c ----
 ## Elija una variable categórica y cree una tabla donde muestre
 ## la frecuencia de las categorías y su porcentaje.
+trabajo_final |> 
+  janitor::tabyl(Variable) |> 
+  mutate(percent = round(percent, 2))
+## En la tabla se aprecia que la variable ansiedad presenta menor cantidad
+## de observaciones, esto debido a que recién comenzó a ser evaluada por
+## la ENDO desde 2018 
+
 
