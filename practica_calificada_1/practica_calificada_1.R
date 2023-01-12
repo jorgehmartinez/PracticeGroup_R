@@ -82,6 +82,9 @@ WCMatches |>
 
 ## Ejercicio d ----
 ## Indique cuál es el referee que más partidos ha arbitrado
+# Se usa la función count para contar la variable solicitada en la pregunta. 
+# Además, dado que existe más 357 árbitos, se uso el argumento sort para ordenar de mayor a menor segun la frecuencia.
+# De esa manera, se identifica en la fila 2 el árbitro o referee con más partidos arbitrados.
 WCMatches |> 
   count(Referee, sort = TRUE)
 
