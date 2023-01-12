@@ -66,21 +66,54 @@ tres_vacunas #visualiza el resultado
 ## Ejercicio a ----
 ## Abra las siguientes bases de datos GitHub: 
 ## WorldCupMatches.csv y WorldCups.csv
-
+# Se usa la funcion libreria para activar el paquete readr con el fin de usar las funciones de importacion de datos
+library(readr)
+# Se crea el objeto enlace1 para WorldCupMatches.csv
+enlace1 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCupMatches.csv"
+# Se crea el objeto enlace2 para WorldCup.csv
+enlace2 <- "https://raw.githubusercontent.com/ChristianChiroqueR/Diplomado-2022-Fundamentos-R/main/BDs/WorldCups.csv"
+# Se genera las funciones para leer las bases de datos en formato CSV
+WCMatches <- read_csv(enlace1)
+WC <- read_csv(enlace2)
+# Se genera las funciones para revisar y abrir las bases de datos en formato dataframe
+str(WCMatches)
+WCMatches
+str(WC)
+WC
 
 ## Ejercicio b ----
 ## Genere una lista con los países donde se ha realizado una copa mundial.
 ## Sólo deben figurar valores únicos.
 
+# Se activa la libreria para manipulación de datos
+library(tidyverse)
+# Se usa la siguiente función para seleccionar una o más variables de la base de datos según corresponda. 
+# En este caso, .data= permite identificar el DataFrame desesado, WC, luego se especifica el nombre de la variable.
+# Revisando la base de datos, se identificó que "Country" en WC refiere a los países donde se realizó una copa mundial.
+select(.data= WC, Country)
 
 ## Ejercicio c ----
 ## Presente cuál fue el estadio que ha acogido a la mayor cantidad
 ## de espectadores o asistentes en la historia de los mundiales
-
+# Para este ejercicio se usará el operador Pipe
+# Se usa la funcion summarise ya que contiene diversos cálculos estadísticos, como valor máximo.
+# En este caso, se usa el argumento na.rm para indicar si se incluye los valores perdidos. Para ello, se indica na.rm=TRUE para no devuelva NA como resultado. 
+WCMatches |> 
+  summarise(max(Attendance, na.rm=TRUE))
+# Luego de identificar el máximo valor de asistentes en la historia del mundial, 
+# se usará la función filter para identificar el caso correspondiente
+# y luego se seleccionará el estadio que acogio a esa cantidad máxima de asistentes
+WCMatches |> 
+  filter(Attendance == 173850) |> 
+  select(Stadium, Attendance)
 
 ## Ejercicio d ----
 ## Indique cuál es el referee que más partidos ha arbitrado
-
+# Se usa la función count para contar la variable solicitada en la pregunta. 
+# Además, dado que existe más 357 árbitos, se uso el argumento sort para ordenar de mayor a menor segun la frecuencia.
+# De esa manera, se identifica en la fila 2 el árbitro o referee con más partidos arbitrados.
+WCMatches |> 
+  count(Referee, sort = TRUE)
 
 ## Ejercicio e ----
 library(tidyverse)
