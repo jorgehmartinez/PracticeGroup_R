@@ -181,12 +181,40 @@ library(dplyr)
 WorldCups_full <- WorldCups |>
   full_join(WorldCupMatches, by = "Year")
 view(WorldCups_full)
-#para obtener lo solicitado se debe cumplir las siguientes condiciones:
-#si Home.Team.Name es igual a Winner se sumara Home.Team.Goals
-#si Away.Team.Name es igual a Winner se sumara Away.Team.Goals
+##ahora se genero una variable booleana si el ganador coincidia con su condicion de local
+ejg2 <- WorldCups_full |>
+  mutate(ganador_home=Winner==Home.Team.Name)
+View(ejg2)
+##en este caso se suma los goles anotados por el equipo local si este era el campeon
+ejg2 |>
+  filter(ganador_home == "True") |> group_by(Year) |> summarise(Total_Home = sum(Home.Team.Goals))
 
-WorldCups_full |>
-  filter(Winner==Home.Team.Name | Winner==Away.Team.Name)
+##ahora se genero una variable booleana si el ganador coincidia con su condicion de visitante
+ejg3 <- WorldCups_full |>
+  mutate(ganador_away=Winner==Away.Team.Name)
+View(ejg3)  
+
+##en este caso se suma los goles anotados por el equipo visitante si este era el campeon
+ejg2 |>
+  filter(ganador_away == "True") |> group_by(Year) |> summarise(Total_Home = sum(Away.Team.Goals))  
+
+  ##para el caso del sub campeon
+##se genero una variable booleana si el sub campeo coincidia con su condicion de local
+ejg4 <- WorldCups_full |>
+  mutate(Sub_campeon_home=Runners.Up==Home.Team.Name)
+View(ejg4)
+##en este caso se suma los goles anotados por el equipo local si este corresponde
+ejg4 |>
+  filter(Sub_campeon_home == "True") |> group_by(Year) |> summarise(Total_Home = sum(Home.Team.Goals))
+
+##ahora se genero una variable booleana si el subcampeon coincidia con su condicion de visitante
+ejg5 <- WorldCups_full |>
+  mutate(Sub_campeon_away=Runners.Up==Away.Team.Name)
+View(ejg5)  
+
+##en este caso se suma los goles anotados por el equipo visitante si este era el campeon
+ejg4 |>
+  filter(Sub_campeon_away == "True") |> group_by(Year) |> summarise(Total_Home = sum(Away.Team.Goals))
 
 
 # Pregunta 3 --------------------------------------------------------------
