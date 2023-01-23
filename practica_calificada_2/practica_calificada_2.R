@@ -17,8 +17,8 @@ library(ggplot2)
 library(dplyr)
 ### Extracción de los datos de COVID-19
 enlace <- "https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download"
-### Asignamos la data anterior al objeto casos_covid y usamos el argumento dec para indicar que el separador es ";".
-casos_covid <- read.csv2(enlace, dec= ";") 
+### Asignamos la data anterior al objeto casos_covid y usamos el argumento sep para indicar que el separador es ";".
+casos_covid <- read.csv(enlace, sep = ";") 
 head(casos_covid) #Aquí se visualiza las primeras filas de casos_covid
 ### Creación de la variable "n_meses"
 
