@@ -1,0 +1,339 @@
+---
+title: "Trabajo aplicativo integrador"
+date:  "Enero 2023"
+output:
+  html_document:
+    toc: true
+    toc_depht: 3
+    toc_float: true
+    theme: flatly
+    lang: es-ES
+    df_print: paged
+  pdf_document: default
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+------------------------------------------------------------------------
+
+```{css echo = FALSE}
+# Cambiar color del título y subtítulos
+.columns {display:flex;}
+h1 {color: #052A59;}
+h2 {color: #274873;}
+h3 {color: #000000;}
+```
+
+```{css echo = FALSE}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #FFFFFF;
+    background-color: #052A59;
+    border-color: #274873;
+}
+```
+
+```{r, echo=FALSE}
+htmltools::img(src = knitr::image_uri("logo.png"), 
+               style = 'position:absolute;
+                        top:0; 
+                        right:0;
+                        padding:10px;',
+               width  = "130px",
+               heigth = "130px")
+```
+
+## Información general
+
+El presente trabajo tiene como autores a:
+
+-   Hinojosa Cahuana, Percy alberth
+-   Huanca Martinez, Jorge alberto
+-   Huancaya Idone, Cesar dante
+-   Tintaya Orihuela, Meir alvaro
+
+## 1. Introducción
+
+### Contexto
+
+En los últimos años, los avances en Big Data y Cloud Computing son
+señalados en diversos artículos científicos. La velocidad de generación
+de datos, así como su crecimiento sigue en aumento, debido a la
+proliferación de dispositivos móviles, sensores conectados a Internet, y
+diversas plataformas en la nube. Este paradigma de Big Data proporciona
+oportunidades para permitir y mejorar la investigación en aplicaciones
+de soporte de decisiones con un valor sin precedentes para el mundo
+digital, aplicaciones que incluyen negocios, ciencias e ingeniería. Esta
+tendencia es compartida también por el sector público.
+
+Se ha encontrado información de que los gobiernos recopilan y generan
+inmensas cantidades de datos mediante sus actividades cotidianas, tales
+como la gestión de pensiones, la recolección de impuestos, los registros
+en los sistemas nacionales de salud, el registro de datos de transporte
+y tráfico, y la emisión de documentos oficiales. En ese sentido, el
+sector educación va acumulando inmensa cantidad de datos, como muestra
+de ello se puede observar diversas bases de datos: Censo Educativo,
+Patrón DRE/UGEL, ENDO, ENDI, SIAGIE, Semáforo Escuela, entre otros. Así,
+el sector educación deja en claro el valor de la Big Data para la
+elaboración de políticas públicas y toma de decisiones de funcionarios
+con el fin de mejorar las condiciones de la comunidad educativa:
+estudiantes, familias, gestores regionales, directores y docentes.
+
+### Contexto y problema
+
+Ante la ingente cantidad de datos en el sector educación, los gobiernos
+tanto a nivel nacional como internacional buscan estrategias para
+analizar y visualizar los datos de los distintos actores de la comunidad
+educativa. Si bien se prioriza la analítica de los estudiantes en
+Educación Básica Regular, la información sobre docentes no ha recibido
+el mismo volumen de análisis para la visualización de datos. Mucho
+menos, la analítica de indicadores de salud mental que afecta su rol
+formativo y bienestar.
+
+En ese sentido, resulta importante explicar el potencial del ggplot2 en
+este contexto. El ggplot2 es un paquete de visualización de datos
+ampliamente utilizado debido a sus poderosas capacidades y flexibilidad.
+Entre los beneficios de ggplot2 para las organizaciones del sector
+público, se puede destacar su capacidad para explorar y comprender los
+datos, para crear y usar visualizaciones que permitan respaldar la toma
+de decisiones de las autoridades, para personalizar gráficos acorde a
+las necesidades específicas, y brindar visualizaciones informativas y
+comprensibles a los ciudadanos.
+
+Por ello, resulta importante desarrollar scripts que permitan visualizar
+la información de los docentes.
+
+### Objetivo
+
+Por todo lo anterior, el presente trabajo persigue el siguiente
+objetivo:
+
+> > Generar funciones para la visualización de datos y evolución de
+> > problemas de salud mental en docentes de Educación Básica Regular
+> > (EBR) durante el periodo 2014-2021 según área geográfica y nivel de
+> > enseñanza, a partir de la data de la Encuesta Nacional a Docentes
+> > (ENDO)
+
+## 2. Metodología
+
+### Base de datos
+
+-   **Fuente:** Portal Web ESCALE (Estadística de la Calidad Educativa).
+-   **Archivo:** "H: ENDO" / BD_SPSS.zip
+-   **Enlace:**
+    [ESCALE_MINEDU](http://escale.minedu.gob.pe/uee/-/document_library_display/GMv7/view/4385260)
+
+### Variables
+
+-   **Denominación:** Durante el presente año usted, ¿sufrió o sufre
+    alguna de las siguientes enfermedades o malestares? (Respuesta
+    múltiple)
+-   **Categorías:** "Estrés", "Depresión", "Ansiedad", etc.
+
+##### Nota
+
+-   La categoría "ansiedad" se incluyó desde la medición de 2018
+
+-   La formulación de la pregunta varió entre las diferentes mediciones:
+
+    | Año       | Formulación                        |
+    |:----------|------------------------------------|
+    | 2014      | "durante los últimos dos años..."  |
+    | 2016-2018 | "durante el año pasado..."         |
+    | 2020-2021 | "durante el presente año..."       |
+
+### Pre-procesamiento
+
+Se aplicó el factor de expansión a la prevalencia. Asimismo, se realizó
+un cruce con variables socio-demográficas (Sexo, Área geográfica, Nivel
+Educativo) para ver la prevalencia en cada una de las categorías.
+
+Mayor detalle en nuestro [repositorio
+Github](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/procesamiento_data/preprocesamiento_endo.R)
+
+### Procesamiento
+
+La data procesada se encuentra en [nuestro
+repositorio](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv),
+contiene 4 variables: Variable, Segmento, Valor, Year
+
+Análisis propuesto: Utilizar los paquetes {ggplot2, ggrepel, hrbrthemes}
+para visualizar la evolución de la prevalencia de estrés, ansiedad y
+depresión.
+
+De manera específica, se plantea usar las siguientes funciones:
+
+-   **geom_line:** graficar evolución
+-   **facet_wrap:** segmentar según categoría
+-   **geom_label_repel:** graficar porcentajes
+-   **theme_ipsum:** seleccionar tema visual
+
+```{r echo=FALSE, warning=FALSE}
+# Importar librerías
+pacman::p_load(tidyverse, ggrepel, showtext, ggtext)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# Importar data 
+salud_mental <- readxl::read_excel("evolucion_prevalencia_salud.xlsx")
+```
+
+## 3. Resultados 
+
+```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
+# Gráfico de prevalencia general
+salud_mental |> 
+  mutate(valor = round(valor, 1)) |> 
+  filter(segmento == "General") |> 
+  ggplot(aes(x = year, 
+             y = valor,
+             col = variable)) +
+  geom_line(size = 1.5,
+            linetype = "dashed") +
+  geom_point(size = 3) +
+  labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión (2014-2021)",
+       x = NULL,
+       y = NULL,
+       col = NULL) +
+  hrbrthemes::theme_ipsum() + 
+  ggrepel::geom_label_repel(aes(label = scales::percent(valor/100)), show.legend = F) +
+  
+  scale_x_continuous(
+    limits = c(2014, 2021),
+    breaks = seq(2014, 2021, by = 1)
+  ) +
+  scale_y_continuous(
+    limits = c(0, 65),
+    breaks = seq(10,70,10)
+  ) +
+  scale_color_manual(
+    values = c(rcartocolor::carto_pal(n = 10, name = "Bold")[1:11-1], "#10454F") 
+  ) +
+  theme(legend.position = "top",
+        plot.title = element_text(face = "bold", size = 20, vjust = -0.5, hjust = 0.5))
+```
+
+```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
+# Gráfico de prevalencia según sexo
+salud_mental |> 
+  mutate(valor = round(valor, 1)) |> 
+  filter(segmento %in% c("Hombres", "Mujeres")) |> 
+  ggplot(aes(x = year, 
+             y = valor,
+             col = segmento)) +
+  geom_line(size = 1.5,
+            linetype = "solid") +
+  geom_point(size = 3) +
+  labs(title = "Prevalencia de trastornos de salud mental en docentes\n según sexo (2014-2021)",
+       x = NULL,
+       y = NULL) +
+  facet_wrap(~variable) +
+  hrbrthemes::theme_ipsum() +
+  scale_y_continuous(
+    limits = c(0, 70),
+    breaks = seq(5,70,5)
+  ) +
+  scale_color_manual(values = c("#008F8C", "#F2AE30")) +
+  theme(plot.title = element_text(face = "bold", size = 20, vjust = 3, hjust = 0.5),
+        legend.position = "bottom",
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14))
+```
+
+```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
+# Gráfico de prevalencia según área
+salud_mental |> 
+  mutate(valor = round(valor, 1)) |> 
+  filter(segmento %in% c("Urbana", "Rural")) |> 
+  ggplot(aes(x = year, 
+             y = valor,
+             col = segmento)) +
+  geom_line(size = 1.5,
+            linetype = "solid") +
+  geom_point(size = 3) +
+  labs(title = "Prevalencia de trastornos de salud mental en docentes\n según área (2014-2021)",
+       x = NULL,
+       y = NULL) +
+  facet_wrap(~variable) +
+  hrbrthemes::theme_ipsum() +
+  scale_y_continuous(
+    limits = c(0, 70),
+    breaks = seq(5,70,5)
+  ) +
+  scale_color_manual(values = c("#008F8C", "#F2AE30")) +
+  theme(plot.title = element_text(face = "bold", size = 20, vjust = 3, hjust = 0.5),
+        legend.position = "bottom",
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14))
+```
+
+```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
+# Gráfico de prevalencia según nivel educativo
+salud_mental |> 
+  mutate(valor = round(valor, 1)) |> 
+  filter(segmento %in% c("Inicial", "Primaria", "Secundaria")) |> 
+  ggplot(aes(x = year, 
+             y = valor,
+             col = segmento)) +
+  geom_line(size = 1.5,
+            linetype = "solid") +
+  geom_point(size = 3) +
+  labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión según nivel educativo",
+       x = NULL,
+       y = NULL,
+       color = "Nivel Educativo") +
+  facet_wrap(~variable) +
+  hrbrthemes::theme_ipsum() +
+  scale_y_continuous(
+    limits = c(0, 50),
+    breaks = seq(5,70,5)
+  ) +
+  scale_color_manual(values = c("#008F8C", "#F2AE30", "#8C1F28")) +
+  theme(plot.title = element_text(face = "bold", size = 20, vjust = 3, hjust = 0.5),
+        legend.position = "bottom",
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=14))
+```
+
+
+## 4. Discusión
+
+## 5. Conclusiones
+
+## 6. Bibliografía
+
+-   Alvtz-Meza, A., & Quinteros, E. (2022). Proyecto Aplicado en Ciencia
+    de Datos: Visualización y Análisis de Datos del Ministerio de
+    Educación de Colombia. doi: 10.13140/RG.2.2.20818.02249
+
+-   Hernández Sánchez, J., Álvarez Aros, E. L., & Cantón Croda, R. M.
+    (2021). Tendencias del big data y cloud computing: Bibliometría del
+    2010 al 2020. Ciencia Latina Revista Científica Multidisciplinar,
+    5(4), 3999-4016.
+
+-   Li, J., Huang, L., Zhou, Y., He, S., & Ming, Z. (2017). Computation
+    Partitioning for Mobile Cloud Computing in a Big Data Environment.
+    IEEE Transactions on Industrial Informatics, 13(4), 2009-2018.
+
+-   Munné, R. (2016). Big Data in the Public Sector. In: Cavanillas, J.,
+    Curry, E., Wahlster, W. (eds.) New Horizons for a Data-Driven
+    Economy. Springer, Cham.
+
+-   Ministerio de Educación del Perú (s.f.). Estadística de la Calidad
+    Educativa.
+
+-   Ministerio de Educación del Perú (2017). Perú ¿Cómo vamos en
+    educación?
+
+-   Miranda, G.A., & Delgado, Z.Y. (2018) Visualización de indicadores
+    de actividad docente en educación en línea como apoyo a la
+    evaluación formativa. Hamut´ay, 5 (2), 78-93
+
+-   Orrego, D., Ugalde, J., Salas, R., Torres, R. & López-Gonzales, J.L.
+    (2022). Visual Predictive Data Analysis Approach for the Academic
+    Performance of Students from a Peruvian University. Applied
+    Sciences, 12.
+
+-   Wickham, H. (2016). ggplot2 Elegant Graphics for Data Analysis. New
+    York: Springer.
