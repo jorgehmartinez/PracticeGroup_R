@@ -1,5 +1,5 @@
 # Grupo de Practica - R 
-Grupo de práctica del curso *Fundamentos de R* del Diplomado en Ciencia de Datos PUCP.
+Grupo de práctica del curso *Fundamentos de R* del Diplomado en Ciencia de Datos PUCP. Se puede ver la versión online [aquí](https://jorgehmartinez.github.io/PracticeGroup_R/trabajo_aplicativo_integrador/trabajo_aplicativo_integrador.html)
 
 Contiene dos carpetas:
 - **practica_calificada_1**: Contiene la información sobre la primera práctica calificada
