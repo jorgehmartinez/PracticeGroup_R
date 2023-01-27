@@ -163,4 +163,3 @@ t.test(ing4 ~ is.na(it1), data=sublapop)
 #### resisando los resultados de la prueba T de medias, se registra que el p-value no es menor a 0.05, 
 #### por tanto, no se puede rechazar la H0, es decir, los valores perdidos de ing4 no son afectados 
 #### por la distribución de valores perdidos de it1.
-#### diferencias e
