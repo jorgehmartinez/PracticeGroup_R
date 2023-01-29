@@ -59,62 +59,84 @@ El presente trabajo tiene como autores a:
 
 En los últimos años, los avances en Big Data y Cloud Computing son
 señalados en diversos artículos científicos. La velocidad de generación
-de datos, así como su crecimiento sigue en aumento, debido a la
+de datos, así como su difusión, sigue en aumento debido a la
 proliferación de dispositivos móviles, sensores conectados a Internet, y
-diversas plataformas en la nube (Hernández et al., 2021; Yang et al, 2017). 
-Este paradigma de Big Data proporciona oportunidades para permitir y mejorar 
-la investigación en aplicaciones de soporte de decisiones con un valor sin 
-precedentes para el mundo digital, aplicaciones que incluyen negocios, 
-ciencias e ingeniería. Esta tendencia es compartida también por el sector público (Hernández et al., 2021; Munné, 2016).
+diversas plataformas en la nube (Hernández et al., 2021; Yang et al,
+2017). Este paradigma de Big Data proporciona oportunidades para
+permitir y mejorar la investigación en aplicaciones de soporte de
+decisiones con un valor sin precedentes para el mundo digital,
+aplicaciones que incluyen negocios, ciencias e ingeniería. Esta
+tendencia es compartida también por el sector público (Hernández et al.,
+2021; Munné, 2016).
 
 Se ha encontrado información de que los gobiernos recopilan y generan
 inmensas cantidades de datos mediante sus actividades cotidianas, tales
 como la gestión de pensiones, la recolección de impuestos, los registros
 en los sistemas nacionales de salud, el registro de datos de transporte
-y tráfico, y la emisión de documentos oficiales (Munné, 2016). En ese sentido, el
-sector educación va acumulando inmensa cantidad de datos, como muestra
-de ello se puede observar diversas bases de datos: Censo Educativo,
-Patrón DRE/UGEL, ENDO, ENDI, SIAGIE, Semáforo Escuela, entre otros. Así,
-el sector educación deja en claro el valor de la Big Data para la
-elaboración de políticas públicas y toma de decisiones de funcionarios
-con el fin de mejorar las condiciones de la comunidad educativa:
-estudiantes, familias, gestores regionales, directores y docentes (Ministerio de Educación del Perú, s.f.).
+y tráfico, y la emisión de documentos oficiales (Munné, 2016). En ese
+sentido, el sector educación va acumulando inmensa cantidad de data,
+como muestra de ello se puede observar diversas bases de datos: Censo
+Educativo, Patrón DRE/UGEL, ENDO, ENDI, SIAGIE, Semáforo Escuela, entre
+otros. Así, el sector educación deja en claro el valor de la Big Data
+para la elaboración de políticas públicas y toma de decisiones de
+funcionarios con el fin de mejorar las condiciones de la comunidad
+educativa: estudiantes, familias, gestores regionales, directores y
+docentes (Ministerio de Educación del Perú, s.f.).
 
 ### Problema
 
 Ante la ingente cantidad de datos en el sector educación, los gobiernos
 tanto a nivel nacional como internacional buscan estrategias para
 analizar y visualizar los datos de los distintos actores de la comunidad
-educativa (Alvtz & Quinteros, 2022; Miranda & Delgado, 2018; Rodríguez et al., 2016).
-Si bien se prioriza la analítica de los estudiantes en Educación Básica Regular, 
-la información sobre docentes no ha recibido el mismo volumen de análisis 
-para la visualización de datos (Ministerios de Educación del Perú, 2017).
-Mucho menos, la analítica de indicadores de salud mental que afecta su rol
-formativo y bienestar.
+educativa (Alvtz & Quinteros, 2022; Miranda & Delgado, 2018; Rodríguez
+et al., 2016). Si bien se prioriza la analítica de los estudiantes en
+Educación Básica Regular, la información sobre docentes no ha recibido
+el mismo volumen de análisis para la visualización de datos (Ministerios
+de Educación del Perú, 2017). Mucho menos, la analítica de indicadores
+de salud mental que afecta su rol formativo y bienestar.
 
-En ese sentido, resulta importante explicar el potencial del ggplot2 en
-este contexto. El ggplot2 es un paquete de visualización de datos
-ampliamente utilizado debido a sus poderosas capacidades y 
-flexibilidad (Wickham, 2016). Entre los beneficios de ggplot2 para las 
-organizaciones del sector público, se puede destacar su capacidad para explorar 
-y comprender los datos, para crear y usar visualizaciones que permitan respaldar 
-la toma de decisiones de las autoridades, para personalizar gráficos acorde a
-las necesidades específicas, y brindar visualizaciones informativas y
-comprensibles a los ciudadanos (Munné, 2016; Orrego et al., 2022).
+### Estrategia de visualización de datos
 
-Por ello, resulta importante desarrollar scripts que permitan visualizar
-la información de datos abiertos en el sector educación, específicamente sobre docentes.
+En ese sentido, resulta importante explicar el potencial de la librería
+ggplot2 en este contexto, el cual es un paquete de visualización de
+datos ampliamente utilizado debido a sus poderosas capacidades y
+flexibilidad (Wickham, 2016). Entre los beneficios de ggplot2 para las
+organizaciones del sector público, se puede destacar su capacidad para
+explorar y comprender los datos, para crear y usar visualizaciones que
+permitan respaldar la toma de decisiones de las autoridades, para
+personalizar gráficos acorde a las necesidades específicas, y brindar
+visualizaciones informativas y comprensibles a los ciudadanos (Munné,
+2016; Orrego et al., 2022).
+
+De manera específica, se resalta el uso de funciones de dicho paquete
+como: a) **geom_line**, que permite graficar la evolución de un
+indicador a partir de una variable numérica y personalizar el gráfico
+según características como color, tamaño, tipo de línea, etc.; b)
+**facet_wrap**, que es utilizado para agrupar gráficos según las
+categorías de un una variable cualitativa; y c) **scale_x\_continuos** o
+**scale_y\_continuos**, que permiten mejorar la visualización y estética
+con que se presentan los ejes del gráfico, por ejemplo: i) mostrar sus
+valores en porcentaje, ii) establecer sus limites, iii) personalizar sus
+etiquetas.
+
+Además de ggplot2, existen otros paquetes complementarios como:
+**ggrepel** para evitar que etiquetas no se superpongan (Slowikowski,
+2022); **scales** para automatizar la detección de etiquetas y puntos de
+corte (Wickham & Seidel, 2022); y **hbrthemes** para elegir temas
+adaptados a una tipografía específica (Rudis, 2020).
+
+Por todo lo anterior, resulta importante desarrollar proyectos que
+permitan visualizar la información de datos abiertos en el sector
+educación, específicamente sobre la salud mental de los docentes.
 
 ### Objetivo
 
-Por todo lo anterior, el presente trabajo persigue el siguiente
-objetivo:
+El presente trabajo persigue el siguiente objetivo:
 
-> > Generar funciones para la visualización de datos y evolución de
-> > problemas de salud mental en docentes de Educación Básica Regular
-> > (EBR) durante el periodo 2014-2021 según área geográfica y nivel de
-> > enseñanza, a partir de la data de la Encuesta Nacional a Docentes
-> > (ENDO)
+> > Utilizar funciones para visualizar la evolución de problemas de
+> > salud mental en docentes de Educación Básica Regular durante el
+> > periodo 2014-2021 según sexo, área y nivel educativo, a partir de
+> > los resultados de la Encuesta Nacional de Docentes (ENDO).
 
 ## 2. Metodología
 
@@ -138,17 +160,21 @@ objetivo:
 
 -   La formulación de la pregunta varió entre las diferentes mediciones:
 
-    | Año       | Formulación                        |
-    |:----------|------------------------------------|
-    | 2014      | "durante los últimos dos años..."  |
-    | 2016-2018 | "durante el año pasado..."         |
-    | 2020-2021 | "durante el presente año..."       |
+    | Año       | Formulación                       |
+    |:----------|-----------------------------------|
+    | 2014      | "durante los últimos dos años..." |
+    | 2016-2018 | "durante el año pasado..."        |
+    | 2020-2021 | "durante el presente año..."      |
 
 ### Pre-procesamiento
 
 Se aplicó el factor de expansión a la prevalencia. Asimismo, se realizó
 un cruce con variables socio-demográficas (Sexo, Área geográfica, Nivel
 Educativo) para ver la prevalencia en cada una de las categorías.
+
+Para dicho análisis se utilizó principalmente el paquete **pollster**,
+el cual permite realizar tablas simples y cruzadas con los datos
+ponderados.
 
 Mayor detalle en nuestro [repositorio
 Github](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/procesamiento_data/preprocesamiento_endo.R)
@@ -159,16 +185,27 @@ La data procesada se encuentra en [nuestro
 repositorio](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv),
 contiene 4 variables: Variable, Segmento, Valor, Year
 
-Análisis propuesto: Utilizar los paquetes {ggplot2, ggrepel, hrbrthemes}
-para visualizar la evolución de la prevalencia de estrés, ansiedad y
-depresión.
+#### Variables identificadas:
 
-De manera específica, se plantea usar las siguientes funciones:
-
--   **geom_line:** graficar evolución
--   **facet_wrap:** segmentar según categoría
--   **geom_label_repel:** graficar porcentajes
--   **theme_ipsum:** seleccionar tema visual
+    +----------+-----------------------------+-----------------------------+
+    | Variable | Descripción                 | Valor                       |
+    +==========+=============================+=============================+
+    | variable | nombre del problema de      | Estrés, Depresión, Ansiedad |
+    |          | salud mental                |                             |
+    +----------+-----------------------------+-----------------------------+
+    | segmento | grupo de docentes evaluados | General                     |
+    |          |                             | Hombres, Mujeres,           |
+    |          |                             | Urbano, Rural,              |
+    |          |                             | Inicial, Primaria,          |
+    |          |                             | Secundaria                  |
+    +----------+-----------------------------+-----------------------------+
+    | valor    | prevalencia, en porcentaje, | Rango: 4.01 a 65.20         |
+    |          | del problema de salud       |                             |
+    |          | mental                      |                             |
+    +----------+-----------------------------+-----------------------------+
+    | year     | año en que se realizó la    | Rango: 2014 a 2021          |
+    |          | medición de la prevalencia  |                             |
+    +----------+-----------------------------+-----------------------------+
 
 ```{r echo=FALSE, warning=FALSE}
 # Importar librerías
@@ -177,10 +214,18 @@ pacman::p_load(tidyverse, ggrepel, showtext, ggtext)
 
 ```{r echo=FALSE, warning=FALSE}
 # Importar data 
-salud_mental <- readxl::read_excel("evolucion_prevalencia_salud.xlsx")
+enlace <- "https://raw.githubusercontent.com/jorgehmartinez/PracticeGroup_R/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv"
+
+salud_mental <- read.csv2(enlace)
 ```
 
-## 3. Resultados 
+```{r echo=FALSE, warning=FALSE}
+# Modificar data: Transformar el tipo de la variable "valor" a numérica
+salud_mental <- salud_mental |> 
+  mutate(valor = as.double(valor))
+```
+
+## 3. Resultados
 
 ```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
 # Gráfico de prevalencia general
@@ -226,9 +271,10 @@ salud_mental |>
   geom_line(size = 1.5,
             linetype = "solid") +
   geom_point(size = 3) +
-  labs(title = "Prevalencia de trastornos de salud mental en docentes\n según sexo (2014-2021)",
+  labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión según sexo",
        x = NULL,
-       y = NULL) +
+       y = NULL,
+       color = "Sexo") +
   facet_wrap(~variable) +
   hrbrthemes::theme_ipsum() +
   scale_y_continuous(
@@ -253,9 +299,10 @@ salud_mental |>
   geom_line(size = 1.5,
             linetype = "solid") +
   geom_point(size = 3) +
-  labs(title = "Prevalencia de trastornos de salud mental en docentes\n según área (2014-2021)",
+  labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión según área",
        x = NULL,
-       y = NULL) +
+       y = NULL,
+       color = "Área") +
   facet_wrap(~variable) +
   hrbrthemes::theme_ipsum() +
   scale_y_continuous(
@@ -297,35 +344,102 @@ salud_mental |>
         legend.text = element_text(size=14))
 ```
 
-
 ## 4. Discusión
 
-A continuación, se discutirá la utilidad de los argumentos y funciones de los paquetes R usados para la visualización de datos. Considerando la ingente cantidad de bases de datos recopilado por el Ministerio de Educación del Perú, se identifica que la función {ggplot2:: geom_line ()} permite ver la frecuencia de datos en función otra variable continua, en caso de la base analizada, se evidencia la utilidad para identificar patrones de cantidades continuas, tal como se evidencia en investigaciones similares (Sustaita, 2017).
+A continuación, se discutirá la utilidad de los argumentos y funciones
+de los paquetes R usados para la visualización de datos. Considerando la
+ingente cantidad de bases de datos recopilado por el Ministerio de
+Educación del Perú, se identifica que la función **ggplot2::geom_line**
+permite ver la frecuencia de datos en función a otra variable continua,
+en caso de la base analizada, se evidencia la utilidad para identificar
+patrones de cantidades continuas, tal como se evidencia en
+investigaciones similares (Sustaita, 2017).
 
-En el caso de la presente investigación, esta función geom_line() permite visualizar una serie de tiempo y puntuaciones sobre sintomatología de problemas de salud mental. De manera específica, el argumento aes no solo ayuda a definir las variables para la creación del gráfico, sino a delimitar otros atributos estéticos, como el tamaño y diseño de la línea. También, se evidencia que el argumento labs permite asignar un nombre ilustrativo en los gráficos. Por ello, los algoritmos descritos en aes como labs mejoran la claridad visual de datos abiertos masivos, sobre todo resulta útil para funcionarios o especialistas involucrados en la toma de decisiones en políticas públicas (Munné, 2016; Rodríguez et al., 2016).
+En el caso de la presente investigación, esta función
+**ggplot2::geom_line()** permite visualizar una serie de tiempo y
+puntuaciones sobre sintomatología de problemas de salud mental. De
+manera específica, el argumento **aes** no solo ayuda a definir las
+variables para la creación del gráfico, sino a delimitar otros atributos
+estéticos, como el tamaño y diseño de la línea. También, se evidencia
+que el argumento **labs** permite asignar un nombre ilustrativo en los
+gráficos. Por ello, los algoritmos descritos en **aes** como **labs**
+mejoran la claridad visual de datos abiertos masivos, sobre todo resulta
+útil para funcionarios o especialistas involucrados en la toma de
+decisiones en políticas públicas (Munné, 2016; Rodríguez et al., 2016).
 
-En esa misma línea de la estética y claridad visual, los resultados vistos en el gráfico 1 evidencia la utilidad de los paquetes hrbrthemes y ggrepel para complementar la forma en que se visualizan los datos. Los resultados evidencia que la función hrbrtheme::theme_ipsum() ayuda a definir una tipografía amigable, asimismo, la función ggrepel::geom_label_repel evitó el traslape de la coordenada con la etiqueta que representa dicha coordenada (Slowikowski, 2022). Por ejemplo, como se aprecia en el gráfico 1, el punto de la coordenada entre el porcentaje de estrés y el año 2014 no se traslapa con la etiqueta del porcentaje de docentes con estrés (32.3%).
+En esa misma línea de la estética y claridad visual, el gráfico 1
+demuestra la utilidad de los paquetes **hrbrthemes** y **ggrepel** para
+complementar la forma en que se visualizan los datos. Se evidencia que
+la función **hrbrtheme::theme_ipsum()** ayuda a definir una tipografía
+amigable, asimismo, la función **ggrepel::geom_label_repel** evitó el
+traslape de la coordenada con la etiqueta que representa dicha
+coordenada (Slowikowski, 2022). Por ejemplo, como se aprecia en el
+gráfico 1, el punto de la coordenada entre el porcentaje de estrés y el
+año 2014 no se traslapa con la etiqueta del porcentaje de docentes con
+estrés (32.3%).
 
-Otro punto de mejora de la visualización de datos consiste en el formato y rango de valores en el eje X y eje Y. Como se observan en los cuatro gráficos, se mejora el formato del gráfico a partir algoritmos que manipulan el diseño del color. Así, el algoritmo basado en la función scale_colour_manual() de ggplot2 y de la función carto_pal() del paquete complementario rcartocolor (Nowosad, 2018; Wickham, 2016) establecen argumentos para ampliar la paleta de colores, así como especificar un grupo de colores.
+Otro punto de mejora de la visualización de datos consiste en el formato
+y rango de valores en el eje X y eje Y. Como se observan en los cuatro
+gráficos, se mejora el formato del gráfico a partir algoritmos que
+manipulan el diseño del color. Así, el algoritmo basado en la función
+**scale_colour_manual()** de ggplot2 y la función **carto_pal()** del
+paquete complementario rcartocolor (Nowosad, 2018; Wickham, 2016)
+establecen argumentos para ampliar la paleta de colores, así como
+especificar un grupo de colores. Además, la función scale\_+\_continuous
+permite delimitar el valor de inicio y fin de los ejes del gráfico, así
+como definir la constante de salto en cada eje.
 
-En caso de la visualización de los rangos de valores, se demuestra la importancia de las funciones del paquete scales, pues facilita la transformación y escalamiento de los valores de la data (Wickham & Seidel, 2022). De hecho, para la presente investigación, se implementó el escalamiento de variables continuas, tales como la variable año y las puntuaciones de sintomatología convertidas a porcentaje. Es más, el script sobre la función scale_+_continuous del paquete scales permite delimitar el valor de inicio y fin de los ejes del gráfico, así como definir la constante de salto en cada eje. 
+En caso de la visualización de los rangos de valores, se demuestra la
+importancia de las funciones del paquete **scales**, pues facilita la
+transformación y escalamiento de los valores de la data (Wickham &
+Seidel, 2022). De hecho, para la presente investigación, se implementó
+el escalamiento de variables continuas, tal como las puntuaciones de
+sintomatología convertidas a porcentaje.
 
-A parte de las mejoras en el color, tamaño y ejes de abscisas y ordenadas en los gráficos, el algoritmo responde adecuadamente para personalización de los títulos, fondo y leyenda de los gráficos. Gracias a la función theme (), se genera indicaciones claras para modificar tamaño, fuente y estilo de los elementos textuales de los gráficos (ver gráfico 1, 2, 3 y 4), así como modificar la posición de la leyenda. En ese sentido, el ggplot2::theme() ofrece una amplia serie de argumentos para editar libremente componentes no relacionados con la data del gráfico, maximizando la personalización del gráfico (Wickham, 2016).
-
+A parte de las mejoras en el color, tamaño y ejes de abscisas y
+ordenadas en los gráficos, el algoritmo responde adecuadamente para la
+personalización de los títulos, fondo y leyenda de los gráficos. Gracias
+a la función **ggplot2::theme**, se genera indicaciones claras para
+modificar tamaño, fuente y estilo de los elementos textuales de los
+gráficos (ver gráfico 1, 2, 3 y 4), así como modificar la posición de la
+leyenda. En ese sentido, la función ofrece una amplia serie de
+argumentos para editar libremente componentes no relacionados con la
+data del gráfico, maximizando la personalización del gráfico (Wickham,
+2016).
 
 ## 5. Conclusiones
 
-En este estudio se evaluó la utilidad de los algoritmos para la visualización de datos y evolución de problemas de salud a partir de los datos abiertos del Ministerio de Educación del Perú. Se utilizó una combinación de funciones procedentes de los paquetes principales ggplot2 y dplyr, así como de paquetes complementarios ggrpel, scales, hrbrthemes y rcartocolor. El desarrollo del algoritmo se enfoca no solo en la identificación de gráficos útiles para el análisis y lectura de la información de las bases de datos abiertos, sino en la claridad, entendimiento y estética visual del gráfico.
+En este estudio se evaluó la utilidad de los algoritmos para la
+visualización de datos y evolución de problemas de salud a partir de los
+datos abiertos del Ministerio de Educación del Perú. Se utilizó una
+combinación de funciones procedentes de los paquetes principales ggplot2
+y dplyr, así como de paquetes complementarios ggrepel, scales,
+hrbrthemes y rcartocolor. El desarrollo del algoritmo se enfoca no solo
+en la identificación de gráficos útiles para el análisis y lectura de la
+información de las bases de datos abiertos, sino en la claridad,
+entendimiento y estética visual del gráfico.
 
-Se concluye que el algoritmo es efectivo en términos de sustraer, manipular y graficar la data procedente del ESCALE Minedu, específicamente de la Encuesta Nacional de Docentes (ENDO). A su vez, el algoritmo resulta útil para visualizar la data según el segmento de preferencia. Si bien existe alrededor de 120 paquetes de extensión del ggplot2 que ofrece una versatilidad para la visualización de datos, a futuro resultaría importante desarrollar algoritmos enfocados en la dinámica y animación, con fin de facilitar el análisis de variables continuas, sobre todo enfocado en la serie de tiempo. Ello contribuiría a un análisis rápido y certero para autoridades o especialistas involucrados en la toma de decisiones sobre políticas públicas en el sector educación.
-
-
+Se concluye que el algoritmo es efectivo en términos de sustraer,
+manipular y graficar la data procedente del ESCALE Minedu,
+específicamente de la Encuesta Nacional de Docentes (ENDO). A su vez, el
+algoritmo resulta útil para visualizar la data según el segmento de
+preferencia. Si bien existe alrededor de 120 paquetes de extensión del
+ggplot2 que ofrece una versatilidad para la visualización de datos, a
+futuro resultaría importante desarrollar algoritmos enfocados en la
+dinámica y animación, con fin de facilitar el análisis de variables
+continuas, sobre todo enfocado en la serie de tiempo. Ello contribuiría
+a un análisis rápido y certero para autoridades o especialistas
+involucrados en la toma de decisiones sobre políticas públicas en el
+sector educación.
 
 ## 6. Bibliografía
 
 -   Alvtz-Meza, A., & Quinteros, E. (2022). Proyecto Aplicado en Ciencia
     de Datos: Visualización y Análisis de Datos del Ministerio de
     Educación de Colombia. doi: 10.13140/RG.2.2.20818.02249
+
+-   Rudis, B. (2020). hrbrthemes: Additional Themes, Theme Components
+    and Utilities for 'ggplot2'. <http://github.com/hrbrmstr/hrbrthemes>
 
 -   Hernández Sánchez, J., Álvarez Aros, E. L., & Cantón Croda, R. M.
     (2021). Tendencias del big data y cloud computing: Bibliometría del
@@ -349,30 +463,32 @@ Se concluye que el algoritmo es efectivo en términos de sustraer, manipular y g
 -   Miranda, G.A., & Delgado, Z.Y. (2018) Visualización de indicadores
     de actividad docente en educación en línea como apoyo a la
     evaluación formativa. Hamut´ay, 5 (2), 78-93
-    
+
 -   Nowosad, J. (2018). 'CARTOColors' Palettes. R package version 2.1.0.
-    https://nowosad.github.io/rcartocolor    
+    <https://nowosad.github.io/rcartocolor>
 
 -   Orrego, D., Ugalde, J., Salas, R., Torres, R. & López-Gonzales, J.L.
     (2022). Visual Predictive Data Analysis Approach for the Academic
     Performance of Students from a Peruvian University. Applied
     Sciences, 12.
-    
--   Rodríguez, P., Suchan, K., Truflello, R., & Varela, F.(2016). Apoyando la 
-    formulación de políticas públicas y toma de decisiones en educación utilizando 
-    técnicas de análisis de datos masivos: el caso de Chile. 
-    Research Gate. http://dx.doi.org/10.13140/RG.2.1.1419.9283 
-    
--   Slowikowski K (2022). ggrepel: Automatically Position Non-Overlapping 
-    Text Labels with 'ggplot2'. R package version 0.9.2. 
-    https://github.com/slowkow/ggrepel
-    
--   Sustaita, L. A. (2017). Visualización de datos a partir de patrones de despliegue
-    en lenguaje de programación R [Tesis de Maestría]. Centro de Investigación en 
-    Matemáticas - CIMAT 
+
+-   Rodríguez, P., Suchan, K., Truflello, R., & Varela, F.(2016).
+    Apoyando la formulación de políticas públicas y toma de decisiones
+    en educación utilizando técnicas de análisis de datos masivos: el
+    caso de Chile. Research Gate.
+    <http://dx.doi.org/10.13140/RG.2.1.1419.9283>
+
+-   Slowikowski K (2022). ggrepel: Automatically Position
+    Non-Overlapping Text Labels with 'ggplot2'. R package version 0.9.2.
+    <https://github.com/slowkow/ggrepel>
+
+-   Sustaita, L. A. (2017). Visualización de datos a partir de patrones
+    de despliegue en lenguaje de programación R [Tesis de Maestría].
+    Centro de Investigación en Matemáticas - CIMAT
 
 -   Wickham, H. (2016). ggplot2 Elegant Graphics for Data Analysis. New
     York: Springer.
 
--   Wickham H, & Seidel, D. (2022). scales: Scale Functions for Visualization.
-    https://scales.r-lib.org. https://github.com/r-lib/scales.
+-   Wickham H, & Seidel, D. (2022). scales: Scale Functions for
+    Visualization. <https://scales.r-lib.org>.
+    <https://github.com/r-lib/scales>.
