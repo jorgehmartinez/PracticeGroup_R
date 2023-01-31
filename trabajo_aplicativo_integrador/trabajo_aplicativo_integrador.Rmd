@@ -6,10 +6,9 @@ output:
     toc: true
     toc_depht: 3
     toc_float: true
-    theme: flatly
+    theme: readable
     lang: es-ES
     df_print: paged
-  pdf_document: default
 editor_options: 
   markdown: 
     wrap: 72
@@ -35,6 +34,7 @@ h3 {color: #000000;}
 ```
 
 ```{r, echo=FALSE}
+# Agregar logo 
 htmltools::img(src = knitr::image_uri("logo.png"), 
                style = 'position:absolute;
                         top:0; 
@@ -108,23 +108,6 @@ personalizar gráficos acorde a las necesidades específicas, y brindar
 visualizaciones informativas y comprensibles a los ciudadanos (Munné,
 2016; Orrego et al., 2022).
 
-De manera específica, se resalta el uso de funciones de dicho paquete
-como: a) **geom_line**, que permite graficar la evolución de un
-indicador a partir de una variable numérica y personalizar el gráfico
-según características como color, tamaño, tipo de línea, etc.; b)
-**facet_wrap**, que es utilizado para agrupar gráficos según las
-categorías de un una variable cualitativa; y c) **scale_x\_continuos** o
-**scale_y\_continuos**, que permiten mejorar la visualización y estética
-con que se presentan los ejes del gráfico, por ejemplo: i) mostrar sus
-valores en porcentaje, ii) establecer sus limites, iii) personalizar sus
-etiquetas.
-
-Además de ggplot2, existen otros paquetes complementarios como:
-**ggrepel** para evitar que etiquetas no se superpongan (Slowikowski,
-2022); **scales** para automatizar la detección de etiquetas y puntos de
-corte (Wickham & Seidel, 2022); y **hbrthemes** para elegir temas
-adaptados a una tipografía específica (Rudis, 2020).
-
 Por todo lo anterior, resulta importante desarrollar proyectos que
 permitan visualizar la información de datos abiertos en el sector
 educación, específicamente sobre la salud mental de los docentes.
@@ -160,17 +143,25 @@ El presente trabajo persigue el siguiente objetivo:
 
 -   La formulación de la pregunta varió entre las diferentes mediciones:
 
-    | Año       | Formulación                       |
-    |:----------|-----------------------------------|
-    | 2014      | "durante los últimos dos años..." |
-    | 2016-2018 | "durante el año pasado..."        |
-    | 2020-2021 | "durante el presente año..."      |
+    +-------------+-----------------------+
+    | Año         | Formulación           |
+    +:============+=======================+
+    | 2014        | "durante los últimos  |
+    |             | dos años..."          |
+    +-------------+-----------------------+
+    | 2016-2018   | "durante el año       |
+    |             | pasado..."            |
+    +-------------+-----------------------+
+    | 2020-2021   | "durante el presente  |
+    |             | año..."               |
+    +-------------+-----------------------+
 
 ### Pre-procesamiento
 
-Se aplicó el factor de expansión a la prevalencia. Asimismo, se realizó
-un cruce con variables socio-demográficas (Sexo, Área geográfica, Nivel
-Educativo) para ver la prevalencia en cada una de las categorías.
+Se aplicó el factor de expansión a la prevalencia de los problemas de
+salud mental. Asimismo, se realizó un cruce con variables
+socio-demográficas (Sexo, Área geográfica, Nivel Educativo) para ver la
+prevalencia según cada una de las categorías.
 
 Para dicho análisis se utilizó principalmente el paquete **pollster**,
 el cual permite realizar tablas simples y cruzadas con los datos
@@ -181,31 +172,54 @@ Github](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_apli
 
 ### Procesamiento
 
-La data procesada se encuentra en [nuestro
-repositorio](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv),
-contiene 4 variables: Variable, Segmento, Valor, Year
-
 #### Variables identificadas:
 
-    +----------+-----------------------------+-----------------------------+
-    | Variable | Descripción                 | Valor                       |
-    +==========+=============================+=============================+
-    | variable | nombre del problema de      | Estrés, Depresión, Ansiedad |
-    |          | salud mental                |                             |
-    +----------+-----------------------------+-----------------------------+
-    | segmento | grupo de docentes evaluados | General                     |
-    |          |                             | Hombres, Mujeres,           |
-    |          |                             | Urbano, Rural,              |
-    |          |                             | Inicial, Primaria,          |
-    |          |                             | Secundaria                  |
-    +----------+-----------------------------+-----------------------------+
-    | valor    | prevalencia, en porcentaje, | Rango: 4.01 a 65.20         |
-    |          | del problema de salud       |                             |
-    |          | mental                      |                             |
-    +----------+-----------------------------+-----------------------------+
-    | year     | año en que se realizó la    | Rango: 2014 a 2021          |
-    |          | medición de la prevalencia  |                             |
-    +----------+-----------------------------+-----------------------------+
+La data procesada se encuentra en [nuestro
+repositorio](https://github.com/jorgehmartinez/PracticeGroup_R/blob/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv),
+contiene las siguientes cuatro variables:
+
++--------------+---------------------+--------------------+
+| Variable     | Descripción         | Valores            |
++:=============+:====================+:===================+
+| variable     | nombre del problema | Estrés, Depresión, |
+|              | de salud mental     | Ansiedad           |
++--------------+---------------------+--------------------+
+| segmento     | grupo de docentes   | General            |
+|              | evaluados           |                    |
+|              |                     | Hombres, Mujeres,  |
+|              |                     |                    |
+|              |                     | Urbano, Rural,     |
+|              |                     |                    |
+|              |                     | Inicial, Primaria, |
+|              |                     | Secundaria         |
++--------------+---------------------+--------------------+
+| valor        | prevalencia, en     | Rango: 4.01 a      |
+|              | porcentaje, del     | 65.20              |
+|              | problema de salud   |                    |
+|              | mental              |                    |
++--------------+---------------------+--------------------+
+| year         | año en que se       | Rango: 2014 a 2021 |
+|              | realizó la medición |                    |
++--------------+---------------------+--------------------+
+
+#### Análisis propuesto:
+
+De manera específica, se resalta el uso de funciones del paquete
+**ggplot2** como: a) **geom_line**, que permite graficar la evolución de
+un indicador a partir de una variable numérica y personalizar el gráfico
+según características como color, tamaño, tipo de línea, etc.; b)
+**facet_wrap**, que es utilizado para agrupar gráficos según las
+categorías de un una variable cualitativa; y c) **scale_x\_continuos** o
+**scale_y\_continuos**, que permiten mejorar la visualización y estética
+con que se presentan los ejes del gráfico, por ejemplo: i) mostrar sus
+valores en porcentaje, ii) establecer sus limites, iii) personalizar sus
+etiquetas.
+
+Además de ggplot2, existen otros paquetes complementarios como:
+**ggrepel** para evitar que etiquetas no se superpongan (Slowikowski,
+2022); **scales** para automatizar la detección de etiquetas y puntos de
+corte (Wickham & Seidel, 2022); y **hbrthemes** para elegir temas
+adaptados a una tipografía específica (Rudis, 2020).
 
 ```{r echo=FALSE, warning=FALSE}
 # Importar librerías
@@ -213,14 +227,16 @@ pacman::p_load(tidyverse, ggrepel, showtext, ggtext)
 ```
 
 ```{r echo=FALSE, warning=FALSE}
-# Importar data 
+# Importar data a partir de un enlace
 enlace <- "https://raw.githubusercontent.com/jorgehmartinez/PracticeGroup_R/main/trabajo_aplicativo_integrador/evolucion_prevalencia_salud.csv"
 
+# Leer la data y guardarla en un objeto denominado "salud mental"
 salud_mental <- read.csv2(enlace)
 ```
 
 ```{r echo=FALSE, warning=FALSE}
-# Modificar data: Transformar el tipo de la variable "valor" a numérica
+# Modificar data: Transformar el tipo de la variable "valor" a numérica,
+# paso necesario para luego utilizar la función geom_line
 salud_mental <- salud_mental |> 
   mutate(valor = as.double(valor))
 ```
@@ -230,21 +246,32 @@ salud_mental <- salud_mental |>
 ```{r echo=FALSE, warning=FALSE, out.width="100%", fig.width = 8,}
 # Gráfico de prevalencia general
 salud_mental |> 
+  # Redondear el valor de la prevalencia a un decimal
   mutate(valor = round(valor, 1)) |> 
+  # Filtrar por el segmento de preferencia
   filter(segmento == "General") |> 
+  # Definir las coordenadas (año y valor de prevalencia)
+  # colorear las líneas según el nombre del problema de salud mental
   ggplot(aes(x = year, 
              y = valor,
              col = variable)) +
+  # agregar gráfica de línea, definir el tamaño y tipo de línea 
   geom_line(size = 1.5,
             linetype = "dashed") +
+  # agregar gráfica de puntos, definir el tamaño de los puntos
+  # se utiliza para visualizar la cifra en el gráfico
   geom_point(size = 3) +
+  # definir la etiqueta del título, quitar etiquetas para los ejes
   labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión (2014-2021)",
        x = NULL,
        y = NULL,
        col = NULL) +
+  # elegir el tema del gráfico mediante el paquete hrbrthemes
   hrbrthemes::theme_ipsum() + 
+  # usar ggrepel para evitar que se superpongan las etiquetas
+  # las etiquetas se modifican mediante el paquete scales
   ggrepel::geom_label_repel(aes(label = scales::percent(valor/100)), show.legend = F) +
-  
+  # se modifica los límites y los puntos de corte de los ejes
   scale_x_continuous(
     limits = c(2014, 2021),
     breaks = seq(2014, 2021, by = 1)
@@ -253,9 +280,13 @@ salud_mental |>
     limits = c(0, 65),
     breaks = seq(10,70,10)
   ) +
+  # se eligen los colores específicos de las líneas del gráfico,
+  # esta elección se realiza a partir de una escala
   scale_color_manual(
     values = c(rcartocolor::carto_pal(n = 10, name = "Bold")[1:11-1], "#10454F") 
   ) +
+  # se define el tema del gráfico, especificando la posición de la leyenda
+  # además se especifican los elementos del título: tamaño y posición
   theme(legend.position = "top",
         plot.title = element_text(face = "bold", size = 20, vjust = -0.5, hjust = 0.5))
 ```
@@ -275,6 +306,8 @@ salud_mental |>
        x = NULL,
        y = NULL,
        color = "Sexo") +
+  # se divide el gráfico a partir de las categorías de "variable",
+  # la cual previamente fue filtrada con valores específicos
   facet_wrap(~variable) +
   hrbrthemes::theme_ipsum() +
   scale_y_continuous(
@@ -385,9 +418,10 @@ manipulan el diseño del color. Así, el algoritmo basado en la función
 **scale_colour_manual()** de ggplot2 y la función **carto_pal()** del
 paquete complementario rcartocolor (Nowosad, 2018; Wickham, 2016)
 establecen argumentos para ampliar la paleta de colores, así como
-especificar un grupo de colores. Además, la función scale\_+\_continuous
-permite delimitar el valor de inicio y fin de los ejes del gráfico, así
-como definir la constante de salto en cada eje.
+especificar un grupo de colores. Además, la función
+**scale\_+\_continuous** permite delimitar el valor de inicio y fin de
+los ejes del gráfico, así como definir la constante de salto en cada
+eje.
 
 En caso de la visualización de los rangos de valores, se demuestra la
 importancia de las funciones del paquete **scales**, pues facilita la
@@ -419,18 +453,19 @@ en la identificación de gráficos útiles para el análisis y lectura de la
 información de las bases de datos abiertos, sino en la claridad,
 entendimiento y estética visual del gráfico.
 
-Se concluye que el algoritmo es efectivo en términos de sustraer,
-manipular y graficar la data procedente del ESCALE Minedu,
-específicamente de la Encuesta Nacional de Docentes (ENDO). A su vez, el
-algoritmo resulta útil para visualizar la data según el segmento de
-preferencia. Si bien existe alrededor de 120 paquetes de extensión del
-ggplot2 que ofrece una versatilidad para la visualización de datos, a
-futuro resultaría importante desarrollar algoritmos enfocados en la
-dinámica y animación, con fin de facilitar el análisis de variables
-continuas, sobre todo enfocado en la serie de tiempo. Ello contribuiría
-a un análisis rápido y certero para autoridades o especialistas
-involucrados en la toma de decisiones sobre políticas públicas en el
-sector educación.
+Se concluye que:
+
+-   El algoritmo es efectivo en términos de sustraer, manipular y
+    graficar la data procedente del ESCALE Minedu, específicamente de la
+    Encuesta Nacional de Docentes (ENDO)
+
+-   El algoritmo resulta útil para visualizar la data según el segmento
+    de preferencia, por lo que puede contribuir a un análisis más rápido
+    y certero para autoridades o especialistas en la toma de decisiones
+    sobre políticas públicas en el sector educación.
+
+-   A futuro resultaría importante desarrollar algoritmos enfocados en
+    la dinámica y animación
 
 ## 6. Bibliografía
 
