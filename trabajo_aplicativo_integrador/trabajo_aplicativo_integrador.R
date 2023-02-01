@@ -67,7 +67,7 @@ salud_mental |>
   theme(legend.position = "top",
         plot.title = element_text(face = "bold", size = 20, vjust = -0.5, hjust = 0.5))
 
-# Gráfico de prevalencia según sexo
+## Gráfico de prevalencia según sexo----
 salud_mental |> 
   # Se redonde el valor
   mutate(valor = round(valor, 1)) |> 
@@ -98,7 +98,7 @@ salud_mental |>
         legend.title = element_text(size=14),
         legend.text = element_text(size=14))
 
-# Gráfico de prevalencia según área
+## Gráfico de prevalencia según área ----
 salud_mental |> 
   mutate(valor = round(valor, 1)) |> 
   filter(segmento %in% c("Urbana", "Rural")) |> 
@@ -126,7 +126,7 @@ salud_mental |>
         legend.title = element_text(size=14),
         legend.text = element_text(size=14))
 
-# Gráfico de prevalencia según nivel educativo
+## Gráfico de prevalencia según nivel educativo----
 salud_mental |> 
   mutate(valor = round(valor, 1)) |> 
   filter(segmento %in% c("Inicial", "Primaria", "Secundaria")) |> 
