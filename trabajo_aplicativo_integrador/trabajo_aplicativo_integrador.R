@@ -15,34 +15,35 @@ enlace <- "https://raw.githubusercontent.com/jorgehmartinez/PracticeGroup_R/main
 # Leer la data y guardarla en un objeto denominado "salud mental"
 salud_mental <- read.csv2(enlace)
 
-# Modificar data: Transformar el tipo de la variable "valor" a numérica,
-# paso necesario para luego utilizar la función geom_line
+# Se transforma el tipo de la variable "valor" a numérica,
+# dado que es necesario para la función geom_line, para ello usamos el pipe y la
+# función mutate
 salud_mental <- salud_mental |> 
   mutate(valor = as.double(valor))
 
-# Gráfico de prevalencia general
+## Gráfico de prevalencia general ----
 salud_mental |> 
   # Redondear el valor de la prevalencia a un decimal
   mutate(valor = round(valor, 1)) |> 
-  # Filtrar por el segmento de preferencia
+  # Se usa la función dplyr::filter para filtrar por el segmento General
   filter(segmento == "General") |> 
   # Definir las coordenadas (año y valor de prevalencia)
   # colorear las líneas según el nombre del problema de salud mental
   ggplot(aes(x = year, 
              y = valor,
              col = variable)) +
-  # agregar gráfica de línea, definir el tamaño y tipo de línea 
+  # Se agrega un gráfico de línea, definir el tamaño y el diseño de línea 
   geom_line(size = 1.5,
             linetype = "dashed") +
-  # agregar gráfica de puntos, definir el tamaño de los puntos
-  # se utiliza para visualizar la cifra en el gráfico
+  # Se agrega un gráfico de puntos, definir el tamaño de los puntos
+  # Se utiliza para visualizar la cifra en el gráfico
   geom_point(size = 3) +
-  # definir la etiqueta del título, quitar etiquetas para los ejes
+  # Se define la etiqueta del título, quitar etiquetas para los ejes
   labs(title = "Proporción de docentes que declaran haber experimentado\n estrés, ansiedad y/o depresión (2014-2021)",
        x = NULL,
        y = NULL,
        col = NULL) +
-  # elegir el tema del gráfico mediante el paquete hrbrthemes
+  # Se elige el tema del gráfico mediante el paquete hrbrthemes
   hrbrthemes::theme_ipsum() + 
   # usar ggrepel para evitar que se superpongan las etiquetas
   # las etiquetas se modifican mediante el paquete scales
@@ -68,6 +69,7 @@ salud_mental |>
 
 # Gráfico de prevalencia según sexo
 salud_mental |> 
+  # Se redonde el valor
   mutate(valor = round(valor, 1)) |> 
   filter(segmento %in% c("Hombres", "Mujeres")) |> 
   ggplot(aes(x = year, 
@@ -80,7 +82,7 @@ salud_mental |>
        x = NULL,
        y = NULL,
        color = "Sexo") +
-  # se divide el gráfico a partir de las categorías de "variable",
+  # se divide el gráfico a partir de las categorías de "variable" en este caso: estrés, depresión y ansiedad,
   # la cual previamente fue filtrada con valores específicos
   facet_wrap(~variable) +
   hrbrthemes::theme_ipsum() +
@@ -88,6 +90,8 @@ salud_mental |>
     limits = c(0, 70),
     breaks = seq(5,70,5)
   ) +
+  # se eligen los colores específicos de las líneas del gráfico,
+  # esta elección se realiza a partir de una escala
   scale_color_manual(values = c("#008F8C", "#F2AE30")) +
   theme(plot.title = element_text(face = "bold", size = 20, vjust = 3, hjust = 0.5),
         legend.position = "bottom",
@@ -108,6 +112,8 @@ salud_mental |>
        x = NULL,
        y = NULL,
        color = "Área") +
+  # se divide el gráfico a partir de las categorías de "variable" en este caso: estrés, depresión y ansiedad ,
+  # la cual previamente fue filtrada con valores específicos
   facet_wrap(~variable) +
   hrbrthemes::theme_ipsum() +
   scale_y_continuous(
